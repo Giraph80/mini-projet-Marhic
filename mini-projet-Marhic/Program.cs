@@ -12,12 +12,13 @@ class miniProjetMarhic
     {
         if (valeur == null || pile == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("l'élément est nul.");
         }
-        else
+        if (valeur == null)
         {
-            pile.Add(valeur);
+            throw new ArgumentNullException("la pile est nulle.");
         }
+        pile.Add(valeur);
     }
 
     /// <summary>
@@ -29,12 +30,10 @@ class miniProjetMarhic
     {
         if (pile == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("La pille est nulle.");
         }
-        else
-        {
-            return pile[pile.Count() - 1];
-        }
+        return pile[pile.Count() - 1];
+
     }
 
     /// <summary>
@@ -46,14 +45,12 @@ class miniProjetMarhic
     {
         if (pile == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("La pile est nulle.");
         }
-        else
-        {
-            string val = top(pile);
-            pile.RemoveAt(pile.Count() - 1); //Suppression du dernier élément de la liste.
-            return val;
-        }
+        string val = top(pile);
+        pile.RemoveAt(pile.Count() - 1); //Suppression du dernier élément de la liste.
+        return val;
+
     }
 
     /// <summary>
@@ -67,10 +64,10 @@ class miniProjetMarhic
         string calcul = Console.ReadLine(); //Entrée utilisateur.
         if (calcul == null)
         {
-            throw new ArgumentNullException("Entrée nulle.");
+            throw new ArgumentNullException("le calcul entré est nul");
         }
 
-        List<String> elementExpression = calcul.Split(' ').ToList(); //Enlève les espaces de l'expression.
+    List<String> elementExpression = calcul.Split(' ').ToList(); //Enlève les espaces de l'expression.
 
         for(int i = 0; i < elementExpression.Count; i++) //parcours l'expression.
         {
@@ -79,14 +76,19 @@ class miniProjetMarhic
         return expression;
     }
 
-
+    /// <summary>
+    /// affecte les valeurs de l'expression à partir de la pile.
+    /// </summary>
+    /// <param name="premiereValeur">premiere valeur de l'expression</param>
+    /// <param name="deuxiemeValeur">deuxieme valeur de l'expression</param>
+    /// <param name="pile">pile contenant les nombres de l'expression</param>
+    /// <exception cref="Exception"></exception>
     public static void affectationEtVerification(ref float premiereValeur, ref float deuxiemeValeur, List<string> pile)
     {
         deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
         premiereValeur = float.Parse(pop(pile));
         if (premiereValeur < 0 || deuxiemeValeur < 0)//vérifie qu'aucune valeur n'est négative
         { 
-
             throw new Exception("Erreur : Valeurs négatives interdites.");
         }
     }
@@ -123,8 +125,7 @@ class miniProjetMarhic
                         affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
                         if(premiereValeur == 0)
                         {
-                            Console.WriteLine("Erreur : Impossible de diviser par 0 ou d'envoyer des nombres négatifs.");
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
+                            throw new DivideByZeroException();
                         }
                         else
                         {
