@@ -125,7 +125,7 @@ class miniProjetMarhic
                         affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
                         if(premiereValeur == 0)
                         {
-                            throw new DivideByZeroException();
+                            throw new DivideByZeroException("Valeurs entrées incorrectes : division par zéro");
                         }
                         else
                         {
