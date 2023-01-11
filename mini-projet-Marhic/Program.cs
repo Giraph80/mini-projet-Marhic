@@ -10,7 +10,14 @@ class miniProjetMarhic
     /// <param name="valeur">valeur à ajouter dans la pile.</param>
     public static void push(List<string>pile, string valeur)
     {
-        pile.Add(valeur);
+        if (valeur == null || pile == null)
+        {
+            throw new ArgumentNullException();
+        }
+        else
+        {
+            pile.Add(valeur);
+        }
     }
 
     /// <summary>
@@ -20,7 +27,14 @@ class miniProjetMarhic
     /// <returns>retourne la dernière valeur de la liste.</returns>
     public static string top(List<string> pile)
     {
-        return pile[pile.Count()-1];
+        if (pile == null)
+        {
+            throw new ArgumentNullException();
+        }
+        else
+        {
+            return pile[pile.Count() - 1];
+        }
     }
 
     /// <summary>
@@ -30,9 +44,16 @@ class miniProjetMarhic
     /// <returns>retourne la valeur supprimée.</returns>
     public static string pop(List<string> pile)
     {
-        string val = top(pile);
-        pile.RemoveAt(pile.Count() - 1); //Suppression du dernier élément de la liste.
-        return val;
+        if (pile == null)
+        {
+            throw new ArgumentNullException();
+        }
+        else
+        {
+            string val = top(pile);
+            pile.RemoveAt(pile.Count() - 1); //Suppression du dernier élément de la liste.
+            return val;
+        }
     }
 
     /// <summary>
@@ -42,17 +63,13 @@ class miniProjetMarhic
     public static List<string> getCalcul()
     { 
         List<string> expression = new List<string>(); //Déclaration d'une nouvelle liste qui contiendra l'expression
-
-        
-            Console.WriteLine("Entrez le calcul : \n");
-            string calcul = Console.ReadLine(); //Entrée utilisateur.
-            if (calcul == null)
+        Console.WriteLine("Entrez le calcul : \n");
+        string calcul = Console.ReadLine(); //Entrée utilisateur.
+        if (calcul == null)
         {
             throw new ArgumentNullException("Entrée nulle.");
         }
 
-
-        
         List<String> elementExpression = calcul.Split(' ').ToList(); //Enlève les espaces de l'expression.
 
         for(int i = 0; i < elementExpression.Count; i++) //parcours l'expression.
@@ -67,8 +84,8 @@ class miniProjetMarhic
     {
         deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
         premiereValeur = float.Parse(pop(pile));
-        if (premiereValeur < 0 || deuxiemeValeur < 0)
-        { //vérifie qu'aucune valeur n'est négative
+        if (premiereValeur < 0 || deuxiemeValeur < 0)//vérifie qu'aucune valeur n'est négative
+        { 
 
             throw new Exception("Erreur : Valeurs négatives interdites.");
         }
