@@ -10,7 +10,7 @@ class miniProjetMarhic
     /// <param name="valeur">valeur à ajouter dans la pile.</param>
     public static void push(List<string>pile, string valeur)
     {
-        if (valeur == null || pile == null)
+        if (pile.Count()==0)
         {
             throw new ArgumentNullException("l'élément est nul.");
         }
@@ -28,7 +28,7 @@ class miniProjetMarhic
     /// <returns>retourne la dernière valeur de la liste.</returns>
     public static string top(List<string> pile)
     {
-        if (pile == null)
+        if (pile.Count()==0)
         {
             throw new ArgumentNullException("La pille est nulle.");
         }
@@ -43,7 +43,7 @@ class miniProjetMarhic
     /// <returns>retourne la valeur supprimée.</returns>
     public static string pop(List<string> pile)
     {
-        if (pile == null)
+        if (pile.Count()==0)
         {
             throw new ArgumentNullException("La pile est nulle.");
         }
