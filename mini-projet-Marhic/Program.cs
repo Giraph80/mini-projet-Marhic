@@ -48,7 +48,7 @@ class miniProjetMarhic
             string calcul = Console.ReadLine(); //Entrée utilisateur.
             if (calcul == null)
         {
-            throw new Exception("Entrée nulle.");
+            throw new ArgumentNullException("Entrée nulle.");
         }
 
 
@@ -62,6 +62,18 @@ class miniProjetMarhic
         return expression;
     }
 
+
+    public static void affectationEtVerification(ref float premiereValeur, ref float deuxiemeValeur, List<string> pile)
+    {
+        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
+        premiereValeur = float.Parse(pop(pile));
+        if (premiereValeur < 0 || deuxiemeValeur < 0)
+        { //vérifie qu'aucune valeur n'est négative
+
+            throw new Exception("Erreur : Valeurs négatives interdites.");
+        }
+    }
+
     /// <summary>
     /// Effectue le calcul à partir de l'expression donnée.
     /// </summary>
@@ -69,7 +81,6 @@ class miniProjetMarhic
     /// <returns>Retourne la somme finale.</returns>
     public static float Calcul(List<string> expression)
     {
-       
         List<string> pile = new List<string>();
         float somme = 0;
         float premiereValeur = 0;
@@ -82,44 +93,18 @@ class miniProjetMarhic
                 switch (element) //Utilisé pour chaque opérateur.
                 {
                     case "+": //gestion de l'addition.
-                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
-                        Console.WriteLine("Premiere valeur :" + premiereValeur);
-                        premiereValeur = float.Parse(pop(pile));
-                        Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if(premiereValeur < 0 || deuxiemeValeur < 0) { //vérifie qu'aucune valeur n'est négative
-
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
-                        }
-                        else
-                        {
-                            somme = premiereValeur + deuxiemeValeur;
-                            push(pile, somme.ToString());
-                        }                        
+                        affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
+                        somme = premiereValeur + deuxiemeValeur;
+                        push(pile, somme.ToString());
                         break;
                     case "-":
-                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération. Elle est ensuite retirée de la pile.
-                        Console.WriteLine("Premiere valeur :" + premiereValeur);
-                        premiereValeur = float.Parse(pop(pile));
-                        Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if (premiereValeur < 0 || deuxiemeValeur < 0) 
-                        {
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
-                            ;
-                        }
-                        else
-                        {
-                            somme = premiereValeur - deuxiemeValeur;
-                            push(pile, somme.ToString());
-                        }
-                        
+                        affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
+                        somme = premiereValeur - deuxiemeValeur;
+                        push(pile, somme.ToString());
                         break;
                     case "/":
-                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
-                        Console.WriteLine("Premiere valeur : " + premiereValeur);
-                        premiereValeur = float.Parse(pop(pile));
-                        Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-
-                        if(premiereValeur == 0 || deuxiemeValeur < 0 || premiereValeur < 0)
+                        affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
+                        if(premiereValeur == 0)
                         {
                             Console.WriteLine("Erreur : Impossible de diviser par 0 ou d'envoyer des nombres négatifs.");
                             throw new Exception("Erreur : Valeurs négatives interdites.");
@@ -131,19 +116,9 @@ class miniProjetMarhic
                         }
                         break;
                     case "*":
-                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
-                        Console.WriteLine("Premiere valeur : " + premiereValeur);
-                        premiereValeur = float.Parse(pop(pile));
-                        Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if (premiereValeur < 0 || deuxiemeValeur < 0)
-                        {
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
-                        }
-                        else
-                        {
-                            somme = premiereValeur * deuxiemeValeur;
-                            push(pile, somme.ToString());
-                        }
+                        affectationEtVerification(ref deuxiemeValeur, ref premiereValeur, pile);
+                        somme = premiereValeur * deuxiemeValeur;
+                        push(pile, somme.ToString());
                         break;
                     default:
                         push(pile, element);
