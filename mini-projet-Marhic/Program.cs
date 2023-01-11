@@ -42,8 +42,17 @@ class miniProjetMarhic
     public static List<string> getCalcul()
     { 
         List<string> expression = new List<string>(); //Déclaration d'une nouvelle liste qui contiendra l'expression
-        Console.WriteLine("Entrez le calcul : \n");
-        string calcul = Console.ReadLine(); //Entrée utilisateur.
+
+        
+            Console.WriteLine("Entrez le calcul : \n");
+            string calcul = Console.ReadLine(); //Entrée utilisateur.
+            if (calcul == null)
+        {
+            throw new Exception("Entrée nulle.");
+        }
+
+
+        
         List<String> elementExpression = calcul.Split(' ').ToList(); //Enlève les espaces de l'expression.
 
         for(int i = 0; i < elementExpression.Count; i++) //parcours l'expression.
@@ -72,12 +81,12 @@ class miniProjetMarhic
             {
                 switch (element) //Utilisé pour chaque opérateur.
                 {
-                    case "+":
-                        deuxiemeValeur = float.Parse(pop(pile));
+                    case "+": //gestion de l'addition.
+                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
                         Console.WriteLine("Premiere valeur :" + premiereValeur);
                         premiereValeur = float.Parse(pop(pile));
                         Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if(premiereValeur < 0 || deuxiemeValeur < 0) {
+                        if(premiereValeur < 0 || deuxiemeValeur < 0) { //vérifie qu'aucune valeur n'est négative
 
                             throw new Exception("Erreur : Valeurs négatives interdites.");
                         }
@@ -88,23 +97,24 @@ class miniProjetMarhic
                         }                        
                         break;
                     case "-":
-                        deuxiemeValeur = float.Parse(pop(pile));
+                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération. Elle est ensuite retirée de la pile.
                         Console.WriteLine("Premiere valeur :" + premiereValeur);
                         premiereValeur = float.Parse(pop(pile));
                         Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if (premiereValeur >= 0 && deuxiemeValeur >= 0)
+                        if (premiereValeur < 0 || deuxiemeValeur < 0) 
+                        {
+                            throw new Exception("Erreur : Valeurs négatives interdites.");
+                            ;
+                        }
+                        else
                         {
                             somme = premiereValeur - deuxiemeValeur;
                             push(pile, somme.ToString());
                         }
-                        else
-                        {
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
-                        }
                         
                         break;
                     case "/":
-                        deuxiemeValeur = float.Parse(pop(pile));
+                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
                         Console.WriteLine("Premiere valeur : " + premiereValeur);
                         premiereValeur = float.Parse(pop(pile));
                         Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
@@ -121,20 +131,19 @@ class miniProjetMarhic
                         }
                         break;
                     case "*":
-                        deuxiemeValeur = float.Parse(pop(pile));
+                        deuxiemeValeur = float.Parse(pop(pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
                         Console.WriteLine("Premiere valeur : " + premiereValeur);
                         premiereValeur = float.Parse(pop(pile));
                         Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
-                        if (premiereValeur >= 0 && deuxiemeValeur >= 0)
+                        if (premiereValeur < 0 || deuxiemeValeur < 0)
+                        {
+                            throw new Exception("Erreur : Valeurs négatives interdites.");
+                        }
+                        else
                         {
                             somme = premiereValeur * deuxiemeValeur;
                             push(pile, somme.ToString());
                         }
-                        else
-                        {
-                            throw new Exception("Erreur : Valeurs négatives interdites.");
-                        }
-                        
                         break;
                     default:
                         push(pile, element);
@@ -159,8 +168,8 @@ class miniProjetMarhic
 
         do
         {
-            float somme = Calcul(getCalcul());
-            Console.WriteLine(somme);
+            Console.WriteLine( Calcul(getCalcul()));
+            //Console.WriteLine(somme);
 
         } while (programRunning);
         
