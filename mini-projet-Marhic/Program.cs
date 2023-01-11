@@ -61,7 +61,11 @@ class miniProjetMarhic
 
                     break;
                 case "-":
-                    
+                    int premiereValeur = Convert.ToInt32(pop(pile));
+                    Console.WriteLine("Premiere valeur :" + premiereValeur);
+                    int deuxiemeValeur = Convert.ToInt32(pop(pile));
+                    Console.WriteLine("deuxieme valeur :" + deuxiemeValeur);
+                    somme += premiereValeur + deuxiemeValeur;
                     break;
                 case "/":
                     
