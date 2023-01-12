@@ -104,8 +104,9 @@ class miniProjetMarhic
     /// <exception cref="Exception"></exception>
     public static void affectationEtVerification(ref float premiereValeur, ref float deuxiemeValeur,ref string pile)
     {
-        deuxiemeValeur = float.Parse(Pop(ref pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
         premiereValeur = float.Parse(Pop(ref pile));
+        deuxiemeValeur = float.Parse(Pop(ref pile));//la valeur en haut de la pile devient la deuxième valeur de l'opération
+       
         if (premiereValeur < 0 || deuxiemeValeur < 0)//vérifie qu'aucune valeur n'est négative
         { 
             throw new Exception("Erreur : Valeurs négatives interdites.");
@@ -129,10 +130,8 @@ class miniProjetMarhic
             {
                 switch (element) //Utilisé pour chaque opérateur.
                 {
-                    
                     case '+': //gestion de l'addition.
                         affectationEtVerification(ref deuxiemeValeur, ref premiereValeur,ref pile);
-           
                         somme = premiereValeur + deuxiemeValeur;
                         Push(ref pile, somme.ToString());
                         break;
@@ -180,7 +179,7 @@ class miniProjetMarhic
         bool programRunning = true;
         do
         {
-            Console.WriteLine( Calcul(getCalcul()));
+            Console.WriteLine(Calcul(getCalcul()));
             //Console.WriteLine(somme);
 
         } while (programRunning);
