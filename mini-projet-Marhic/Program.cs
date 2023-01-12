@@ -29,7 +29,7 @@ class miniProjetMarhic
     /// <returns>retourne la dernière valeur de la liste.</returns>
     public static string Top(string pile)
     {
-        if (pile == "")
+        if (pile == null)
         {
             throw new ArgumentNullException("La pille est nulle.");
         }
@@ -47,7 +47,7 @@ class miniProjetMarhic
     {
         string dernierElement = Top(pile);
         string pileConcatenee = "";
-        if (pile == "")
+        if (pile == null)
         {
             throw new ArgumentNullException("La pile est nulle.");
         }
@@ -184,10 +184,7 @@ class miniProjetMarhic
             //Console.WriteLine(somme);
 
         } while (programRunning);
-        
     }
-
-
 }
 
 
